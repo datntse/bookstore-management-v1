@@ -85,11 +85,8 @@ public class OrderDAO implements Serializable {
                         stm2.setString(2, item.getFood().getFoodId());
                         stm2.setInt(3, item.getQuantity());
                         stm2.setDouble(4, item.getPrice());
-                        
-                        int inserResult =  stm2.executeUpdate();
-                        if (inserResult > 0) {
-                            System.out.println("MakeOrdeR__Insert to Order_detail Sucesss");
-                        }
+                        stm2.executeUpdate();
+                     
                     }
                 }
                 
@@ -99,11 +96,9 @@ public class OrderDAO implements Serializable {
                 for (Item item : cart.getItems()) {
                     stm3.setInt(1, item.getQuantity());
                     stm3.setString(2, item.getFood().getFoodId());
-                    int updateResult = stm3.executeUpdate();
-                    if(updateResult > 0) {
-                        System.out.println("MakeOrder__ Update Sucesss");
-                    }
+                    stm3.executeUpdate();
                 }
+            
              
             }
         } finally {
