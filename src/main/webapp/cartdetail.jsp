@@ -61,7 +61,7 @@
             <c:set var="cartObj" value="${requestScope.Cart}"/>
             
             <h3>Total Money:$ ${cartObj.totalMoney} </h3> 
-        <form action="DispatcServlet">
+        <form action="DispatchServlet">
             <input type="submit" name="btnAction" value="Checkout">
         </form>
         

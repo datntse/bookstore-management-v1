@@ -51,7 +51,7 @@ public class AccountDAO {
         try {
             con = DBHelper.getConnection();
             if (con != null) {
-                String sql = "SELECT userId, fullName FROM dbo.Account WHERE username = ? "
+                String sql = "SELECT userId, fullName, isAdmin FROM dbo.Account WHERE username = ? "
                         + "AND password =?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, username);
@@ -61,7 +61,8 @@ public class AccountDAO {
                 if (rs.next()) {
                     String fullname = rs.getString("fullName");
                     String userId = rs.getString("userId");
-                    dto = new AccountDTO(userId, username, password, fullname, false, false);
+                    Boolean isAdmin = rs.getBoolean("isAdmin");
+                    dto = new AccountDTO(userId, username, password, fullname, isAdmin, false);
                 }
             }
         } finally {

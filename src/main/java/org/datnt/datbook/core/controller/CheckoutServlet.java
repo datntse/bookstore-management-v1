@@ -5,27 +5,27 @@
 package org.datnt.datbook.core.controller;
 
 import jakarta.servlet.ServletException;
+import java.io.IOException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
 import java.sql.SQLException;
-import javax.naming.NamingException;
-import org.datnt.datbook.core.account.AccountDAO;
+import java.util.List;
 import org.datnt.datbook.core.account.AccountDTO;
+import org.datnt.datbook.core.cart.Cart;
+import org.datnt.datbook.core.food.FoodDAO;
+import org.datnt.datbook.core.food.FoodDTO;
+import org.datnt.datbook.core.order.OrderDAO;
 
 /**
  *
  * @author datnt
  */
-@WebServlet(name = "AuthLoginServlet", urlPatterns = {"/AuthLoginServlet"})
-public class AuthLoginServlet extends HttpServlet {
-
-    private final String INVALID_PAGE = "invalid.jsp";
-    private final String SERACH_ACTION = "search.jsp";
-    private final String HOME_PAGE = "home.jsp";
+@WebServlet(name = "CheckoutServlet", urlPatterns = {"/CheckoutServlet"})
+public class CheckoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,33 +38,41 @@ public class AuthLoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = INVALID_PAGE;
-        String username = request.getParameter("txtUsername");
-        String password = request.getParameter("txtPassword");
-
+        response.setContentType("text/html;charset=UTF-8");
         try {
-            AccountDAO dao = new AccountDAO();
-            AccountDTO validUser = dao.getAccountByUserAndPassword(username, password);
-
-            if (validUser != null) {
-                if (validUser.isRole()) {
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("ADMIN", validUser.isRole());
-                    url = SERACH_ACTION;
-                } else {
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("USER", validUser);
-                    url = HOME_PAGE;
+             FoodDAO dao = new FoodDAO();
+        List<FoodDTO> listFood = dao.getAll();
+        Cookie[] cookies = request.getCookies();
+        String txt = "";
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("Cart")) {
+                    txt += c.getValue();
                 }
             }
-        } catch (SQLException ex) {
-            log("Authentication _ SQL _ " + ex.getMessage());
-        } catch (NamingException ex) {
-            log("Authentication _ Naming _ " + ex.getMessage());
-        } finally {
-            response.sendRedirect(url);
         }
 
+        Cart cart = new Cart(txt, listFood);
+        HttpSession session = request.getSession();
+        AccountDTO account = (AccountDTO) session.getAttribute("USER");
+
+        if (account == null) {
+            response.sendRedirect("login.jsp");
+        } else {
+            OrderDAO OrderDao = new OrderDAO();
+            OrderDao.makeOrder(account, cart);
+            Cookie cookie = new Cookie("Cart", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            
+            request.getRequestDispatcher("cartdetail.jsp").forward(request, response);
+        }
+            
+        } catch (SQLException e) {
+            log("CheckoutServlet__SQLException__"+ e.getMessage());
+        }
+        
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

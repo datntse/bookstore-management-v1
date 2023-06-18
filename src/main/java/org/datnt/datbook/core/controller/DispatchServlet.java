@@ -30,6 +30,7 @@ public class DispatchServlet extends HttpServlet {
     private static final String CART_DETAIL_SERVLET = "CartDetailServlet";
     private static final String CART_EDIT_SERVLET = "CartEditServlet";
     private static final String CART_REFUND_FOOD_SERVLET = "CartReFundFoodServlet";
+    private static final String CHECKOUT_SERVLET = "CheckoutServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -66,6 +67,8 @@ public class DispatchServlet extends HttpServlet {
             url = CART_EDIT_SERVLET;
         } else if (button.equals("RefundCart")) {
             url = CART_REFUND_FOOD_SERVLET;
+        } else if (button.equals("Checkout")) {
+            url = CHECKOUT_SERVLET;
         }
         request.getRequestDispatcher(url).forward(request, response);
 

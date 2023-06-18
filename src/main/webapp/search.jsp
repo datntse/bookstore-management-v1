@@ -13,9 +13,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <c:set var="USER" value = "${sessionScope.USER}"/>
+        <c:set var="ADMIN" value = "${sessionScope.ADMIN}"/>
 
-        <c:if test="${empty USER}">
+        <c:if test="${empty ADMIN}">
             <jsp:forward  page="home.jsp"></jsp:forward>     
         </c:if>
 

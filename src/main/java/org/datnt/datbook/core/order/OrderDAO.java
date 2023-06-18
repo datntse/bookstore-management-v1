@@ -5,6 +5,7 @@
 package org.datnt.datbook.core.order;
 
 import java.io.Serializable;
+import static java.rmi.server.LogStream.log;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,6 +53,9 @@ public class OrderDAO implements Serializable {
         String orderId = "order0" + id;
         Connection con = null;
         PreparedStatement stm = null;
+        PreparedStatement stm1 = null;
+        PreparedStatement stm2 = null;
+        PreparedStatement stm3 = null;
         ResultSet rs = null;
         FoodDTO dto = null;
         try {
@@ -63,26 +67,43 @@ public class OrderDAO implements Serializable {
                 stm.setString(2, account.getId());
                 stm.setDouble(3, cart.getTotalMoney());
                 stm.setString(4, date);
-                stm.executeUpdate();
+                int result = stm.executeUpdate();
                 
-                String sql1 = "Select top 1 OrderId from dbo.Orders order by OrderId desc";
-                stm = con.prepareStatement(sql1);
-                rs = stm.executeQuery();
+                if (result > 0) {
+                    log("Make order success");
+                }
+                
+                String sql1 = "Select top 1 orderId from dbo.Orders order by orderId desc";
+                stm1 = con.prepareStatement(sql1);
+                rs = stm1.executeQuery();
                 if (rs.next()) {
-                    String oid = rs.getString("OrderId");
+                    String oid = rs.getString("orderId");
                     for (Item item : cart.getItems()) {
-                        String sql2 = "Insert Into dbo.OrderDetail values (?, ?, ?, ?)";
-                        stm = con.prepareStatement(sql2);
-                        stm.setString(1, oid);
-                        stm.setString(2, item.getFood().getFoodId());
-                        stm.setInt(3, item.getQuantity());
-                        stm.setDouble(4, item.getPrice());
+                        String sql2 = "Insert Into dbo.Order_detail values (?, ?, ?, ?)";
+                        stm2 = con.prepareStatement(sql2);
+                        stm2.setString(1, oid);
+                        stm2.setString(2, item.getFood().getFoodId());
+                        stm2.setInt(3, item.getQuantity());
+                        stm2.setDouble(4, item.getPrice());
+                        
+                        int inserResult =  stm2.executeUpdate();
+                        if (inserResult > 0) {
+                            System.out.println("MakeOrdeR__Insert to Order_detail Sucesss");
+                        }
                     }
                 }
                 
-                String sql3 = "Update dbo.Food set quantity = quantity - ? where FoodId = ? ";
-                stm = con.prepareStatement(sql3);
+                String sql3 = "Update dbo.Food set foodQuantity = foodQuantity - ? where foodId = ? ";
+                stm3 = con.prepareStatement(sql3);
                 
+                for (Item item : cart.getItems()) {
+                    stm3.setInt(1, item.getQuantity());
+                    stm3.setString(2, item.getFood().getFoodId());
+                    int updateResult = stm3.executeUpdate();
+                    if(updateResult > 0) {
+                        System.out.println("MakeOrder__ Update Sucesss");
+                    }
+                }
              
             }
         } finally {
