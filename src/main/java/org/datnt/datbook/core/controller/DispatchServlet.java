@@ -46,7 +46,7 @@ public class DispatchServlet extends HttpServlet {
         String url = "invalid.jsp";
         String button = request.getParameter("btnAction");
         if (button == null) {
-            url = "home.jsp";
+            url = "ShopServlet";
         } else if (button.equals("Login")) {
             url = AUTH_LOGIN_SERVLET;
         } else if (button.equals("Logout")) {

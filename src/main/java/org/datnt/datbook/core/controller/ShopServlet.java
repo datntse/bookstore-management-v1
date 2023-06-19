@@ -41,6 +41,8 @@ public class ShopServlet extends HttpServlet {
         try {
             FoodDAO dao = new FoodDAO();
             List<FoodDTO> listFood = dao.getAll();
+            List<FoodDTO> dogFood = dao.getFoodByType("cho");
+            List<FoodDTO> catFood = dao.getFoodByType("meo");
             Cookie[] cookies = request.getCookies();
             String txt = "";
             if (cookies != null) {
@@ -60,7 +62,9 @@ public class ShopServlet extends HttpServlet {
             }
             request.setAttribute("size", size);
             request.setAttribute("dataList", listFood);
-            request.getRequestDispatcher("foodstore.jsp").forward(request, response);
+            request.setAttribute("dogFoodList", dogFood);
+            request.setAttribute("catFoodList", catFood);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
         } catch (SQLException ex) {
             log("ShopServlet_SQLException_" + ex.getMessage());
         }

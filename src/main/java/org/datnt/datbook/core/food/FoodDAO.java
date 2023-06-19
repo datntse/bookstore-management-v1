@@ -34,7 +34,7 @@ import org.datnt.datbook.utils.DBHelper;
         try {
             con = DBHelper.getConnection();
             if (con != null) {
-                String sql = "SELECT foodId, foodName, foodQuantity, foodPrice, foodType, isDisable FROM dbo.Food ";
+                String sql = "SELECT foodId, foodName, foodQuantity, foodPrice, foodType, isDisable, image FROM dbo.Food ";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -44,7 +44,47 @@ import org.datnt.datbook.utils.DBHelper;
                     double foodPrice = rs.getDouble("foodPrice");
                     String foodType = rs.getString("foodType");
                     boolean isDisable = rs.getBoolean("isDisable");
-                    dto = new FoodDTO(foodId, foodName, foodQuantity, foodPrice, foodType, isDisable);
+                    String image = rs.getString("image");
+                    dto = new FoodDTO(foodId, foodName, foodQuantity, foodPrice, foodType, isDisable, image);
+                    listFood.add(dto);
+                }
+                return listFood;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+    
+     public List<FoodDTO> getFoodByType(String type) throws SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        FoodDTO dto = null;
+        try {
+            con = DBHelper.getConnection();
+            if (con != null) {
+                String sql = "SELECT foodId, foodName, foodQuantity, foodPrice, foodType, isDisable, image FROM dbo.Food WHERE foodType = ? ";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, type);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String foodId = rs.getString("foodId");
+                    String foodName = rs.getString("foodName");
+                    int foodQuantity = rs.getInt("foodQuantity");
+                    double foodPrice = rs.getDouble("foodPrice");
+                    String foodType = rs.getString("foodType");
+                    boolean isDisable = rs.getBoolean("isDisable");
+                    String image = rs.getString("image");
+                    dto = new FoodDTO(foodId, foodName, foodQuantity, foodPrice, foodType, isDisable, image);
                     listFood.add(dto);
                 }
                 return listFood;
@@ -83,7 +123,9 @@ import org.datnt.datbook.utils.DBHelper;
                     double foodPrice = rs.getDouble("foodPrice");
                     String foodType = rs.getString("foodType");
                     boolean isDisable = rs.getBoolean("isDisable");
-                    dto = new FoodDTO(foodId, foodName, foodQuantity, foodPrice, foodType, isDisable);
+                    String image = rs.getString("image");
+
+                    dto = new FoodDTO(foodId, foodName, foodQuantity, foodPrice, foodType, isDisable, image);
                     return dto;
                 }
             }

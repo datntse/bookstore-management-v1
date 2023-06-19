@@ -29,5 +29,6 @@ public class FoodDTO implements Serializable{
     private double foodPrice;
     private String foodType;
     private boolean isDisable;
+    private String image;
 }
 
