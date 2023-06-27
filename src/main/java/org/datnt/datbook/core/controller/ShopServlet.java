@@ -10,6 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -41,8 +42,8 @@ public class ShopServlet extends HttpServlet {
         try {
             FoodDAO dao = new FoodDAO();
             List<FoodDTO> listFood = dao.getAll();
-            List<FoodDTO> dogFood = dao.getFoodByType("cho");
-            List<FoodDTO> catFood = dao.getFoodByType("meo");
+            List<FoodDTO> dogFood = dao.getDogFood();
+            List<FoodDTO> catFood = dao.getCatFood();
             Cookie[] cookies = request.getCookies();
             String txt = "";
             if (cookies != null) {
@@ -60,10 +61,14 @@ public class ShopServlet extends HttpServlet {
             } else {
                 size = 0;
             }
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("dogFoodList", dogFood);
+            session.setAttribute("catFoodList", catFood);
+            
             request.setAttribute("size", size);
             request.setAttribute("dataList", listFood);
-            request.setAttribute("dogFoodList", dogFood);
-            request.setAttribute("catFoodList", catFood);
+       
             request.getRequestDispatcher("home.jsp").forward(request, response);
         } catch (SQLException ex) {
             log("ShopServlet_SQLException_" + ex.getMessage());

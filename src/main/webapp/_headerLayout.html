@@ -9,7 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-                <!-- Header -->
+        <!-- Header -->
         <div class="header">
             <div class="container">
                 <div class="row header-search">
@@ -29,12 +29,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             <div class="col header-option-notify ">
                                 <img src="images/bell.png" alt="">
                             </div>
-                            <div class="col header-option-cart">
-                                <img src="images/cart.png" alt="" srcset="">
-                            </div>
+                            <a href="DispatchServlet?btnAction=viewCart">
+                                <div class="col header-option-cart">
+                                    <img src="images/cart.png" alt="" srcset="">
+                                    <div class="cart-quantity">0</div>
+                                </div>
+                            </a>
                             <div class="col header-option-profile">
                                 <a href="login.jsp">
-                                <img src="images/user-icon.png" alt="">
+                                    <img src="images/user-icon.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -46,16 +49,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <div class="header-navbar">
             <div class="container header-navbar__list">
                 <ul class="header-navbar__page-list">
-                    <li class="header-navbar__page-list-item"><a href="index.html"
-                            class="header-navbar__page-list-item-link">Trang chủ</a></li>
+                    <li class="header-navbar__page-list-item"><a href="ShopServlet"
+                                                                 class="header-navbar__page-list-item-link">Trang chủ</a></li>
                     <li class="header-navbar__page-list-item"><a href="#"
-                            class="header-navbar__page-list-item-link">Về cửa hàng</a></li>
+                                                                 class="header-navbar__page-list-item-link">Về cửa hàng</a></li>
                     <li class="header-navbar__page-list-item"><a href="#"
-                            class="header-navbar__page-list-item-link">Sản phẩm</a></li>
+                                                                 class="header-navbar__page-list-item-link">Sản phẩm</a></li>
                     <li class="header-navbar__page-list-item"><a href="routing.html"
-                            class="header-navbar__page-list-item-link">Lộ trình ăn</a></li>
+                                                                 class="header-navbar__page-list-item-link">Lộ trình ăn</a></li>
                     <li class="header-navbar__page-list-item"><a href="blog.html"
-                            class="header-navbar__page-list-item-link">Blog</a></li>
+                                                                 class="header-navbar__page-list-item-link">Blog</a></li>
                 </ul>
                 <div class="header-navbar__location-shop">
                     <div class="location-shop__title">Địa chỉ cửa hàng</div>

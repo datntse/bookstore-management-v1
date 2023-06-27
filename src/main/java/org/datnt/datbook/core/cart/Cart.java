@@ -16,7 +16,7 @@ import org.datnt.datbook.core.item.Item;
  */
 public class Cart {
 
-    private List<Item> items;
+    private List<Item> items;   
 
     public Cart() {
         items = new ArrayList();
@@ -109,7 +109,7 @@ public class Cart {
             }
 
         } catch (NumberFormatException e) {
-
+            System.out.println("Cart: Error");
         }
 
     }

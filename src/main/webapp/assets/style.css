@@ -126,7 +126,18 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 10px;
     text-align: center;
 }
-
+.header-option-cart {
+    position: relative;
+}
+.cart-quantity {
+    position: absolute;
+    font-size: 1.4rem;
+    top: 0;
+    right: 0;
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    padding: 5px 8px;
+}
 .header-search_form--button:hover {
     background-color: var(--primary-color);
     cursor: pointer;
@@ -250,7 +261,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 700;
     color: var(--text-color);
     display: -webkit-box;
-    -webkit-box-orient: veritcal;
+    -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
@@ -669,7 +680,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 /* Routing list */
-.routing-item {}
+.routing-item {
+}
 
 .routing-list__item--list {
     border: 1px solid var(--border-color);
@@ -776,6 +788,12 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #FF8A00;
 
 }
+.buy-now {
+    font-size: 1.4rem;
+    color: #fff;
+    padding: 5px 10px;
+    margin-top: 8px;
+}
 
 .button-action.button-action--buy-now {
     font-weight: 700;
@@ -789,7 +807,8 @@ input[type=number]::-webkit-outer-spin-button {
     margin-left: 10px;
 }
 
-.routing-button.add-to-cart--button {}
+.routing-button.add-to-cart--button {
+}
 
 .routing-button.buy-now--button {
     margin: 10px 0;
@@ -817,7 +836,8 @@ input[type=number]::-webkit-outer-spin-button {
     width: 100%;
 }
 
-.recommend-product__desc {}
+.recommend-product__desc {
+}
 
 .recommend-product__name {
     font-size: 1.8rem;
@@ -931,7 +951,8 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 10px;
 }
 
-.user_feedback_input {}
+.user_feedback_input {
+}
 
 .user_feedback_avt>i {
     font-size: 8rem;
@@ -1016,4 +1037,41 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 2.4rem;
     font-weight: 700;
     margin-bottom: 40px;
+}
+
+/*==========CART=============*/
+
+@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh !important;
+    }
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+    top: 13px;
+}
+
+.bg-grey {
+    background-color: #eae8e8;
+}
+
+@media (min-width: 992px) {
+    .card-registration-2 .bg-grey {
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+}
+
+@media (max-width: 991px) {
+    .card-registration-2 .bg-grey {
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
 }

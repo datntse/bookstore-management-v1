@@ -26,7 +26,6 @@ public class AccountDTO {
     private String fullName;
     private boolean role;
     private boolean disable;
-
    
     
 }

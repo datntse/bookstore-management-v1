@@ -8,6 +8,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,11 +28,8 @@
         <title>Food Store</title>
     </head>
     <body>
-        
-        <a href="login.jsp">click here to login</a> </br>
-        <a href="ShopServlet">click here to Buy Food</a>
-        <c:set var="dogFoodList" value="${requestScope.dogFoodList}"/>
-        <c:set var="catFoodList" value="${requestScope.catFoodList}"/>
+        <c:set var="dogFoodList" value="${sessionScope.dogFoodList}"/>
+        <c:set var="catFoodList" value="${sessionScope.catFoodList}"/>
         <jsp:include page="_headerLayout.html"></jsp:include>
         
         <div class="content">
@@ -60,6 +59,7 @@
                                             <div class="product-desc">
                                                 <div class="product-desc__title">${dogFood.foodName}</div>
                                                 <div class="product-desc__price">${dogFood.foodPrice}00vnd</div>
+                                                <button data-id="${dogFood.foodId}" class="ajax-add-to-cart-btn buy-now btn btn-warning">Add to cart</button>
                                             </div>
                                         </div>
                                     </div>
@@ -88,6 +88,7 @@
                                             <div class="product-desc">
                                                 <div class="product-desc__title">${catFood.foodName}</div>
                                                 <div class="product-desc__price">${catFood.foodPrice}00vnd</div>
+                                                <button data-id="${catFood.foodId}" class="ajax-add-to-cart-btn buy-now btn btn-warning">Add to cart</button>
                                             </div>
                                         </div>
                                     </div>
@@ -177,4 +178,36 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript" src="assets/main.js"></script>
     </body>
+    
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		$(document).ready(function () {
+			$('.ajax-add-to-cart-btn').click(function (e) {
+				var _id = $(this).data("id");
+				console.log("Click o button");
+				e.stopPropagation();
+				$.ajax({
+					url: "DispatchServlet?btnAction=BuyFood",
+					data: {
+						id: _id,
+						productQuantity: 1
+					},
+                                        type: "GET",
+					success: function (data) {
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: 'Your work has been saved',
+							showConfirmButton: false,
+							timer: 1500
+						});
+						$(".cart-quantity").html(data.productQuantity);
+					},
+					error: function () {
+
+					}
+				});
+			});
+		});
+    </script>
 </html>

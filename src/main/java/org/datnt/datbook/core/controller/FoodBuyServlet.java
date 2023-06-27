@@ -44,13 +44,13 @@ public class FoodBuyServlet extends HttpServlet {
                 for (Cookie c : cookies) {
                     if (c.getName().equals("Cart")) {
                         txt+= c.getValue();
-                        c.setMaxAge(0);
+                        c.setMaxAge(0); 
                         response.addCookie(c);
                     }
                 }
             }
             String foodId = request.getParameter("id");
-            String quantity = request.getParameter("quantity");
+            String quantity = request.getParameter("productQuantity");
             if (txt.isEmpty()) {
                 txt = foodId + ":" + quantity;
             } else {
