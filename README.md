@@ -49,8 +49,8 @@ A website to buy food for cat & dog were build with **MVC Model** & **Maven proj
 ## Screenshots
 ![Login](https://github.com/datntse/pet-shop--v1/blob/main/screenshot/login.png)
 ![Register](https://github.com/datntse/pet-shop--v1/blob/main/screenshot/register.png)
-![Homepage](https://github.com/datntse/pet-shop--v1/blod/main/screenshot/homepage1.png)
-![Homepage](https://github.com/datntse/pet-shop--v1/blod/main/screenshot/homepage.png)
-![FoodList](https://github.com/datntse/pet-shop--v1/blod/main/screenshot/foodlist.png)
+![Homepage](https://github.com/datntse/pet-shop--v1/blob/main/screenshot/homepage1.png)
+![Homepage](https://github.com/datntse/pet-shop--v1/blob/main/screenshot/homepage.png)
+![FoodList](https://github.com/datntse/pet-shop--v1/blob/main/screenshot/foodlist.png)
 ![Cart](https://github.com/datntse/pet-shop--v1/blob/main/screenshot/cart.png)
 
