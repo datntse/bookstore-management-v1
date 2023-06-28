@@ -30,43 +30,45 @@
     <body>
         <c:set var="dogFoodList" value="${sessionScope.dogFoodList}"/>
         <c:set var="catFoodList" value="${sessionScope.catFoodList}"/>
-        <jsp:include page="_headerLayout.html"></jsp:include>
-        
-        <div class="content">
-            <div class="container">
-                <div class="banner banner-warpper">
-                    <img src="https://cdn.shopify.com/s/files/1/1111/3280/files/HomepageBanner2F_2021_2500x.progressive.jpg?v=1635904976"
-                         alt="">
-                    <img src="https://cdn.shopify.com/s/files/1/0521/5784/1585/collections/the_pet_shop_banner_1378_x_288.jpg?v=1653636527"
-                         alt="">
-                    <img src="https://cdn.shopify.com/s/files/1/0521/5784/1585/files/coming_soon.jpg?v=1629961464"
-                         alt="">
-                </div>
-                <div class="product-container">
-                    <div class="row product-list">
-                        <div class="col-12 product-list__title">Thức ăn cho chó</div>
-                        <div class="row product-row g-0">
-                            <div class="col-4 product-img-banner">
-                                <img src="https://bizweb.dktcdn.net/100/468/076/themes/882698/assets/bn_pr_3.png?1677556977585" alt="Product Imgage" srcset="">
-                            </div>
-                            <div class="row col-8">
-                                <div class="product-warpper">
-                                    <!-- <div class="routing-warpper"> -->
-                                <c:forEach var="dogFood" items="${dogFoodList}">
-                                    <div class="product-item">
-                                        <div class="product-content product-border">
-                                            <div class="product-img-item" style="background-image: url('${dogFood.image}')"></div>
-                                            <div class="product-desc">
-                                                <div class="product-desc__title">${dogFood.foodName}</div>
-                                                <div class="product-desc__price">${dogFood.foodPrice}00vnd</div>
-                                                <button data-id="${dogFood.foodId}" class="ajax-add-to-cart-btn buy-now btn btn-warning">Add to cart</button>
+        <jsp:include page="_headerLayout.jsp"></jsp:include>
+
+            <div class="content">
+                <div class="container">
+                    <div class="banner banner-warpper">
+                        <img src="https://cdn.shopify.com/s/files/1/1111/3280/files/HomepageBanner2F_2021_2500x.progressive.jpg?v=1635904976"
+                             alt="">
+                        <img src="https://cdn.shopify.com/s/files/1/0521/5784/1585/collections/the_pet_shop_banner_1378_x_288.jpg?v=1653636527"
+                             alt="">
+                        <img src="https://cdn.shopify.com/s/files/1/0521/5784/1585/files/coming_soon.jpg?v=1629961464"
+                             alt="">
+                    </div>
+                    <div class="product-container">
+                        <div class="row product-list">
+                            <div class="col-12 product-list__title">Thức ăn cho chó</div>
+                            <div class="row product-row g-0">
+                                <div class="col-4 product-img-banner">
+                                    <img src="https://bizweb.dktcdn.net/100/468/076/themes/882698/assets/bn_pr_3.png?1677556977585" alt="Product Imgage" srcset="">
+                                </div>
+                                <div class="row col-8">
+                                    <div class="product-warpper">
+                                        <!-- <div class="routing-warpper"> -->
+                                    <c:forEach var="dogFood" items="${dogFoodList}">
+                                        <div class="product-item">
+                                            <div class="product-content product-border">
+                                                <div class="product-img-item" style="background-image: url('${dogFood.image}')"></div>
+                                                <div class="product-desc">
+                                                    <div class="product-desc__title">${dogFood.foodName}</div>
+                                                    <div class="product-desc__price">${dogFood.foodPrice}00vnd</div>
+                                                    <button data-id="${dogFood.foodId}" class="ajax-add-to-cart-btn buy-now btn btn-warning">Add to cart</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:forEach>
+                                    </c:forEach>
                                 </div>
                                 <div class="col-12 watch-more__button">
-                                    <button type="button" class="btn btn-warning btn-lg watch-more--button">Xem thêm</button>
+                                    <a href="FoodListServlet">
+                                        <button type="button" class="btn btn-warning btn-lg watch-more--button">Xem thêm</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -82,20 +84,22 @@
                                 <div class="product-warpper">
                                     <!-- <div class="routing-warpper"> -->
                                     <c:forEach var="catFood" items="${catFoodList}">
-                                    <div class="product-item">
-                                        <div class="product-content product-border">
-                                            <div class="product-img-item" style="background-image: url('${catFood.image}')"></div>
-                                            <div class="product-desc">
-                                                <div class="product-desc__title">${catFood.foodName}</div>
-                                                <div class="product-desc__price">${catFood.foodPrice}00vnd</div>
-                                                <button data-id="${catFood.foodId}" class="ajax-add-to-cart-btn buy-now btn btn-warning">Add to cart</button>
+                                        <div class="product-item">
+                                            <div class="product-content product-border">
+                                                <div class="product-img-item" style="background-image: url('${catFood.image}')"></div>
+                                                <div class="product-desc">
+                                                    <div class="product-desc__title">${catFood.foodName}</div>
+                                                    <div class="product-desc__price">${catFood.foodPrice}00vnd</div>
+                                                    <button data-id="${catFood.foodId}" class="ajax-add-to-cart-btn buy-now btn btn-warning">Add to cart</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:forEach>
+                                    </c:forEach>
                                 </div>
                                 <div class="col-12 watch-more__button">
-                                    <button type="button" class="btn btn-lg watch-more--button">Xem thêm</button>
+                                    <a href="FoodListServlet">
+                                        <button type="button" class="btn btn-warning btn-lg watch-more--button">Xem thêm</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +114,7 @@
                                 <div class="blog-item">
                                     <div class="blog-content">
                                         <div class="blog-img">
-                                            <img src="images/chim_canh_cut_hoang_de.jpg"
+                                            <img src="images/product.png"
                                                  alt="">
                                         </div>
                                         <div class="blog-desc">
@@ -121,7 +125,7 @@
                                 <div class="blog-item">
                                     <div class="blog-content">
                                         <div class="blog-img">
-                                            <img src="images/chimcanhcut.jpg"
+                                            <img src="images/routing.png"
                                                  alt="">
                                         </div>
                                         <div class="blog-desc">
@@ -132,7 +136,7 @@
                                 <div class="blog-item">
                                     <div class="blog-content">
                                         <div class="blog-img">
-                                            <img src="images/chimcanhcut2.jpg"
+                                            <img src="images/product.png"
                                                  alt="">
                                         </div>
                                         <div class="blog-desc">
@@ -143,7 +147,7 @@
                                 <div class="blog-item">
                                     <div class="blog-content">
                                         <div class="blog-img">
-                                            <img src="images/chim_canh_cut_hoang_de.jpg"
+                                            <img src="images/routing.png"
                                                  alt="">
                                         </div>
                                         <div class="blog-desc">
@@ -154,7 +158,7 @@
                                 <div class="blog-item">
                                     <div class="blog-content">
                                         <div class="blog-img">
-                                            <img src="images/chimcanhcut.jpg"
+                                            <img src="images/product.png"
                                                  alt="">
                                         </div>
                                         <div class="blog-desc">
@@ -178,36 +182,36 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript" src="assets/main.js"></script>
     </body>
-    
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		$(document).ready(function () {
-			$('.ajax-add-to-cart-btn').click(function (e) {
-				var _id = $(this).data("id");
-				console.log("Click o button");
-				e.stopPropagation();
-				$.ajax({
-					url: "DispatchServlet?btnAction=BuyFood",
-					data: {
-						id: _id,
-						productQuantity: 1
-					},
-                                        type: "GET",
-					success: function (data) {
-						Swal.fire({
-							position: 'center',
-							icon: 'success',
-							title: 'Your work has been saved',
-							showConfirmButton: false,
-							timer: 1500
-						});
-						$(".cart-quantity").html(data.productQuantity);
-					},
-					error: function () {
 
-					}
-				});
-			});
-		});
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('.ajax-add-to-cart-btn').click(function (e) {
+                var _id = $(this).data("id");
+                console.log("Click o button");
+                e.stopPropagation();
+                $.ajax({
+                    url: "DispatchServlet?btnAction=BuyFood",
+                    data: {
+                        id: _id,
+                        productQuantity: 1
+                    },
+                    type: "GET",
+                    success: function (data) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Add product to cart success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+//						$(".cart-quantity").html(data);
+                    },
+                    error: function () {
+
+                    }
+                });
+            });
+        });
     </script>
 </html>

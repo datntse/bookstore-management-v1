@@ -4,27 +4,29 @@
  */
 package org.datnt.datbook.core.controller;
 
-import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 import org.datnt.datbook.core.cart.Cart;
 import org.datnt.datbook.core.food.FoodDAO;
 import org.datnt.datbook.core.food.FoodDTO;
+import org.datnt.datbook.core.item.Item;
 
 /**
  *
  * @author datnt
  */
-@WebServlet(name = "FoodBuyServlet", urlPatterns = {"/FoodBuyServlet"})
-public class FoodBuyServlet extends HttpServlet {
+@WebServlet(name = "FoodListServlet", urlPatterns = {"/FoodListServlet"})
+public class FoodListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,42 +39,30 @@ public class FoodBuyServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         try {
+
             FoodDAO dao = new FoodDAO();
             List<FoodDTO> listFood = dao.getAll();
-            Cookie[] cookies = request.getCookies();
-            String txt = "";
-            if (cookies != null) {
-                for (Cookie c : cookies) {
-                    if (c.getName().equals("Cart")) {
-                        txt+= c.getValue();
-                        c.setMaxAge(0); 
-                        response.addCookie(c);
-                    }
-                }
-            }
-            String foodId = request.getParameter("id");
-            String quantity = request.getParameter("productQuantity");
-            if (txt.isEmpty()) {
-                txt = foodId + ":" + quantity;
-            } else {
-                txt = txt + "/" + foodId + ":" + quantity;
-            }
-            
-            Cookie cookie = new Cookie("Cart", txt);
-            cookie.setMaxAge(60 * 60 * 24 * 7);
-            response.addCookie(cookie);
-            response.sendRedirect("ShopServlet");
+            List<FoodDTO> dogFood = dao.getDogFood();
+            List<FoodDTO> catFood = dao.getCatFood();
             Cart cart = new Cart();
-            String cartQuantity = new Gson().toJson(cart.getItems().size());  
-            PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        out.print(cartQuantity);
-        out.flush();
+            List<Item> listItem = cart.getItems();
+            int size;
+            if (listItem != null) {
+                size = listItem.size();
+            } else {
+                size = 0;
+            }
+            HttpSession session = request.getSession();
+            session.setAttribute("dogFoodList", dogFood);
+            session.setAttribute("catFoodList", catFood);
 
-        } catch (SQLException ex) {
-            log("FoodBuyServlet _ SQL Exception " + ex.getMessage());
+            session.setAttribute("size", size);
+            session.setAttribute("dataList", listFood);
+            response.sendRedirect("foodlist.jsp");
+        } catch (SQLException e) {
+            log("FoodlistServlet _ SQLExceiption _" + e.getMessage());
         }
 
     }
@@ -89,9 +79,7 @@ public class FoodBuyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
-       
     }
 
     /**

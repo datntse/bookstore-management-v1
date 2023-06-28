@@ -66,7 +66,7 @@
                 </div>
                 <div class="others-button">
                     <a href="register.jsp" class="btn btn-name">Tạo tài khoản mới</a>               
-                    <a href="homepage.jsp" class="btn btn-name">Trở về Trang Chủ</a>             
+                    <a href="ShopServlet" class="btn btn-name">Trở về Trang Chủ</a>             
                 </div>               
             </div>
 

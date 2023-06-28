@@ -10,6 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -79,15 +80,15 @@ public class CartEditServlet extends HttpServlet {
             Cart cart = new Cart(txt, listFood);
 
             try {
-                String quantity = request.getParameter("quantity");
+                String status = request.getParameter("status");
                 String foodId = request.getParameter("id");
 
                 Item item = cart.getItemById(foodId);
 //                
 //                int quantity_raw = Integer.parseInt(quantity);
-                if(quantity.equals("remove1")) {
+                if(status.equals("remove")) {   
                     cart.removeItemFromCart(item);
-                } else if (quantity.equals("add1")) {
+                } else if (status.equals("add")) {
                     cart.addItemToCart(item);
                 }
             } catch (NumberFormatException e) {
@@ -109,7 +110,8 @@ public class CartEditServlet extends HttpServlet {
             cookie.setMaxAge(60 * 60 * 24 * 7);
             response.addCookie(cookie);
             request.setAttribute("Cart", cart);
-
+            HttpSession session = request.getSession();
+            session.setAttribute("size", cart.getItems().size());
         } catch (SQLException ex) {
             log("CartEditServlet__SQLException__" + ex.getMessage());
         } finally {

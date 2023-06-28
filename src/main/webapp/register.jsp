@@ -87,7 +87,7 @@
             <div class="others">
                 <div class="others-button">
                     <a href="login.jsp" class="btn btn-name"><b>Đăng nhập</b></a>
-                    <a href="homepage.jsp" class="btn btn-name"><b>Quay lại trang chủ</b></a>
+                    <a href="ShopServlet" class="btn btn-name"><b>Quay lại trang chủ</b></a>
                 </div>
             </div>
 

@@ -1,14 +1,11 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
         <!-- Header -->
         <div class="header">
             <div class="container">
@@ -29,12 +26,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             <div class="col header-option-notify ">
                                 <img src="images/bell.png" alt="">
                             </div>
-                            <a href="DispatchServlet?btnAction=viewCart">
                                 <div class="col header-option-cart">
+                            <a href="DispatchServlet?btnAction=viewCart">
                                     <img src="images/cart.png" alt="" srcset="">
-                                    <div class="cart-quantity">0</div>
-                                </div>
+                                    <c:set var="size" value="${sessionScope.size}"/>
+                                    <c:if test="${not empty size}">
+                                    <div class="cart-quantity">${size}</div>
+                                    </c:if>
                             </a>
+                                </div>
                             <div class="col header-option-profile">
                                 <a href="login.jsp">
                                     <img src="images/user-icon.png" alt="">
@@ -53,7 +53,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                                                  class="header-navbar__page-list-item-link">Trang chủ</a></li>
                     <li class="header-navbar__page-list-item"><a href="#"
                                                                  class="header-navbar__page-list-item-link">Về cửa hàng</a></li>
-                    <li class="header-navbar__page-list-item"><a href="#"
+                    <li class="header-navbar__page-list-item"><a href="FoodListServlet"
                                                                  class="header-navbar__page-list-item-link">Sản phẩm</a></li>
                     <li class="header-navbar__page-list-item"><a href="routing.html"
                                                                  class="header-navbar__page-list-item-link">Lộ trình ăn</a></li>
@@ -68,5 +68,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
             </div>
         </div>
-    </body>
 </html>

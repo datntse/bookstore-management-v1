@@ -64,8 +64,8 @@ public class CheckoutServlet extends HttpServlet {
             Cookie cookie = new Cookie("Cart", "");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
-            
-            request.getRequestDispatcher("cartdetail.jsp").forward(request, response);
+            session.setAttribute("size", 0);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
         }
             
         } catch (SQLException e) {

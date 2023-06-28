@@ -66,7 +66,7 @@ public class ShopServlet extends HttpServlet {
             session.setAttribute("dogFoodList", dogFood);
             session.setAttribute("catFoodList", catFood);
             
-            request.setAttribute("size", size);
+            session.setAttribute("size", size);
             request.setAttribute("dataList", listFood);
        
             request.getRequestDispatcher("home.jsp").forward(request, response);

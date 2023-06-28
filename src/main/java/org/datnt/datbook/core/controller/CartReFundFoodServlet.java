@@ -11,6 +11,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
 import org.datnt.datbook.core.cart.Cart;
@@ -71,6 +72,8 @@ public class CartReFundFoodServlet extends HttpServlet {
 
                 Cart cart = new Cart(out, listFood);
                 request.setAttribute("Cart", cart);
+                HttpSession session = request.getSession();
+                session.setAttribute("size", cart.getItems().size());
                 request.getRequestDispatcher("cartdetail.jsp").forward(request, response);
             }
 
